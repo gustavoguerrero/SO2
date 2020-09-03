@@ -1,0 +1,7 @@
+Té:100
+Café:120
+Mate:150
+Tragos:200
+Refrescos:110
+Sánduche:100
+Postres:120
