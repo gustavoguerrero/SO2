@@ -5,7 +5,7 @@ now=$(date "+%A %d/%m/%Y")
 opcion=1
 desc=0.8
 opcion2=1
-num=1
+#num=1 variable con la que numeraba ticket, esta comentado xq no pude implementar
 
 #Productos
 te=$(grep Té precios.txt | cut -d : -f 1)
@@ -34,7 +34,7 @@ precioRefD=$(bc -l <<< $precioRef*$desc)
 precioSanD=$(bc -l <<< $precioSan*$desc)
 precioPosD=$(bc -l <<< $precioPos*$desc)
 
-
+#impresion del los precios nostalgia
 echo "Lista de Precios Nostalgia" > preciosNostalgia.txt
 echo " " > preciosNostalgia.txt
 echo "Té:$precioTeD" >> preciosNostalgia.txt
@@ -45,7 +45,7 @@ echo "Refrescos:$precioRefD" >> preciosNostalgia.txt
 echo "Sánduche:$precioSanD" >> preciosNostalgia.txt
 echo "Postres:$precioPosD" >> preciosNostalgia.txt
 
-
+#inicio del menú
 while [ $opcion -ne 0 ]; do
 	
 	echo "Bienvenido $USER a la Cafeteria - Hoy es: $now."
@@ -68,8 +68,9 @@ while [ $opcion -ne 0 ]; do
 			cat preciosNostalgia.txt
 			echo " "
 		;;
-		2)	
+		2)	#menú facturacion
 			clear
+			total=0
 			while [ $opcion2 -ne 0 ]; do
 				
 				echo " "
@@ -86,52 +87,50 @@ while [ $opcion -ne 0 ]; do
 				echo " "
 				read opcion2
 				echo " "
-				total=0
 
 				case $opcion2 in
 					1)	
-						$total=$(bc -l <<< $total+$precioTeD)
-						echo "$te = $precioTeD" >> ticket+$num.txt
+						total=$(bc -l <<< $total+$precioTeD)
+						echo "$te = $precioTeD" >> ticket.txt
 						echo "$te = $precioTeD"	
 					;;
 					2)
-						$total=$(bc -l <<< $total+$precioCafeD)
-						echo "$cafe = $precioCafeD" >> ticket+$num.txt
+						total=$(bc -l <<< $total+$precioCafeD)
+						echo "$cafe = $precioCafeD" >> ticket.txt
 						echo "$cafe = $precioCafeD" 
 					;;
 					3)
-						$total=$(bc -l <<< $total+$precioMateD)
-						echo "$mate = $precioMateD" >> ticket+$num.txt
+						total=$(bc -l <<< $total+$precioMateD)
+						echo "$mate = $precioMateD" >> ticket.txt
 						echo "$mate = $precioMateD"
 					;;
 					4)
-						$total=$(bc -l <<< $total+$precioTragosD)
-						echo "$tragos = $precioTragosD" >> ticket+$num.txt
+						total=$(bc -l <<< $total+$precioTragosD)
+						echo "$tragos = $precioTragosD" >> ticket.txt
 						echo "$tragos = $precioTragosD"
 					;;
 					5)
-						$total=$(bc -l <<< $total+$precioRefD)
-						echo "$ref = $precioRefD" >> ticket+$num.txt
+						total=$(bc -l <<< $total+$precioRefD)
+						echo "$ref = $precioRefD" >> ticket.txt
 						echo "$ref = $precioRefD"
 					;;
 					6)
-						$total=$(bc -l <<< $total+$precioSacD)
-						echo "$san = $precioSanD" >> ticket+$num.txt
+						total=$(bc -l <<< $total+$precioSacD)
+						echo "$san = $precioSanD" >> ticket.txt
 						echo "$san = $precioSanD"
 					;;
 					7)
-						$total=$(bc -l <<< $total+$precioPosD)
-						echo "$pos = $precioPosD" >> ticket+$num.txt
+						total=$(bc -l <<< $total+$precioPosD)
+						echo "$pos = $precioPosD" >> ticket.txt
 						echo "$pos = $precioPosD"
 					;;
 					8)
 						echo " "
 						echo "Facturación de Consumo"
+						echo " " >> ticket.txt
+						echo "Total: $total" >> ticket.txt
 						echo " " >> ticket+$num.txt
-						echo "Total: $total" >> ticket+$num.txt
-						echo " " >> ticket+$num.txt
-						cat ticket+$num.txt
-						num=$((num+1)
+						cat ticket.txt
 					;;					
 					0)
 						echo " "
